@@ -12,6 +12,7 @@ const outline = document.getElementById('outline');
   const statement = document.getElementById('statement');
   const rootStyles = getComputedStyle(document.documentElement);
   const navEl = document.getElementById('siteNav');
+  const navBrand = document.querySelector('.site-nav__brand');
 
   const toSeconds = (varName, fallback = 0) => {
     const raw = rootStyles.getPropertyValue(varName);
@@ -170,3 +171,23 @@ const outline = document.getElementById('outline');
 
   window.addEventListener('scroll', updateNavOnScroll, { passive: true });
   updateNavOnScroll();
+
+  if (navBrand) {
+    navBrand.addEventListener('click', (event) => {
+      const target = event.target;
+      const isInteractiveChild = target.closest('a, button, [role=\"button\"], [role=\"link\"], [aria-controls]');
+      if (isInteractiveChild && isInteractiveChild !== navBrand) {
+        return;
+      }
+
+      if (window.matchMedia('(max-width: 1024px)').matches) {
+        event.preventDefault();
+        const socialSection = document.querySelector('.content__social');
+        if (socialSection) {
+          socialSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+    });
+  }
