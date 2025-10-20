@@ -170,8 +170,7 @@
         180deg,
         rgba(0,0,0,0.58) 0%,
         rgba(0,0,0,0.28) 38%,
-        rgba(0,0,0,0.36) 58%,
-
+        rgba(0,0,0,0.36) 58%
       ) center / cover no-repeat fixed;
     pointer-events: none;
     z-index: 0;
@@ -675,20 +674,15 @@
   @media (max-width: 1024px) {
     html,
     body {
-      background-color: #04070d;
-      background-image: none;
+      background-color: #0b0b0f;
+      background-image: url('HoustonSunset.jpg');
+      background-position: center 20%;
+      background-size: cover;
+      background-attachment: scroll;
     }
 
     .hero {
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(4, 7, 13, 0.55) 0%,
-          rgba(4, 7, 13, 0.65) 35%,
-          rgba(4, 7, 13, 0.9) 100%
-        ),
-        url('HoustonSunset.jpg') center 20% / cover no-repeat;
-      background-attachment: fixed;
+      background: none;
     }
 
     .site-nav {
@@ -735,9 +729,8 @@
           rgba(6, 9, 14, 0.82) 78%,
           rgba(6, 9, 14, 0.95) 88%,
           rgba(6, 9, 14, 1) 100%
-        ),
-        url('HoustonSunset.jpg') center 20% / cover no-repeat;
-      background-attachment: fixed;
+        );
+      background-attachment: scroll;
     }
 
     .stage {
