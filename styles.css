@@ -688,6 +688,10 @@
       background-color: #04070d;
     }
 
+    :root {
+      --nameBaseFontSize: 300px;
+    }
+
     .hero {
       background:
         url('HoustonSunset.jpg') center 24% / cover no-repeat;
@@ -771,6 +775,11 @@
       letter-spacing: 0.015em;
       text-align: center;
       line-height: 1.45;
+    }
+
+    #outline,
+    #filled {
+      font-size: 300px;
     }
 
     .hero__scroll {
