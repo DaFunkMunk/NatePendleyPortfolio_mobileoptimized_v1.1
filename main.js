@@ -182,9 +182,9 @@ const outline = document.getElementById('outline');
 
       if (window.matchMedia('(max-width: 1024px)').matches) {
         event.preventDefault();
-        const socialSection = document.querySelector('.content__social');
-        if (socialSection) {
-          socialSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const profileCard = document.querySelector('#profile-card');
+        if (profileCard) {
+          profileCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
