@@ -174,6 +174,13 @@ const outline = document.getElementById('outline');
 
   const MOBILE_BRAND_QUERY = '(max-width: 1024px)';
   const BRAND_SCROLL_OFFSET = -120; // tweak this to reposition the profile card
+  const SECTION_SCROLL_OFFSETS = {
+    default: -100,
+    '#about': -120,
+    '#experience': -100,
+    '#projects': -100,
+    '#contact': -120,
+  };
 
   const scrollWithOffset = (element, offset = 0) => {
     if (!element) return;
@@ -204,3 +211,31 @@ const outline = document.getElementById('outline');
       }
     });
   }
+
+  const getSectionOffset = (hash) => {
+    if (!hash) return SECTION_SCROLL_OFFSETS.default;
+    return (
+      SECTION_SCROLL_OFFSETS[hash.toLowerCase()] ??
+      SECTION_SCROLL_OFFSETS[hash] ??
+      SECTION_SCROLL_OFFSETS.default
+    );
+  };
+
+  const handleSectionLinkClick = (event) => {
+    const link = event.currentTarget;
+    const href = link.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
+
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    event.preventDefault();
+    const offset = getSectionOffset(href);
+    scrollWithOffset(target, offset);
+  };
+
+  const navLinks = document.querySelectorAll('.site-nav__menu a[href^="#"]');
+  navLinks.forEach((link) => link.addEventListener('click', handleSectionLinkClick));
+
+  const heroAnchors = document.querySelectorAll('.hero__scroll[href^="#"]');
+  heroAnchors.forEach((anchor) => anchor.addEventListener('click', handleSectionLinkClick));
