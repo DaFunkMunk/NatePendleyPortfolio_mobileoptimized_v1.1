@@ -618,7 +618,7 @@
 
   .experience-card__tags {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 8px;
     margin-top: clamp(16px, 3vh, 24px);
   }
@@ -719,7 +719,7 @@
     }
 
     .site-nav__menu {
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
       gap: clamp(12px, 4.8vw, 18px);
       font-size: clamp(0.85rem, 3.2vw, 1.1rem);
@@ -785,7 +785,7 @@
     }
 
     .content {
-      padding: clamp(2rem, 6vw, 3rem) clamp(6vw, 9vw, 10vw) clamp(2rem, 6vw, 3rem);
+      padding: clamp(6rem, 6vw, 3rem) clamp(6vw, 9vw, 10vw) clamp(2rem, 6vw, 3rem);
       box-shadow: 0 -12px 20px rgba(0, 0, 0, 0.18);
     }
 
