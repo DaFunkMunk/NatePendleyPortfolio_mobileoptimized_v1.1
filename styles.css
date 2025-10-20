@@ -726,6 +726,21 @@
       padding: 0 clamp(22px, 8vw, 44px);
     }
 
+    .hero::after {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,0.58) 0%,
+          rgba(0,0,0,0.28) 38%,
+          rgba(0,0,0,0.36) 58%,
+          rgba(6, 9, 14, 0.82) 78%,
+          rgba(6, 9, 14, 0.95) 88%,
+          rgba(6, 9, 14, 1) 100%
+        ),
+        url('HoustonSunset.jpg') center 20% / cover no-repeat;
+      background-attachment: fixed;
+    }
+
     .stage {
       margin-top: clamp(120px, 30vh, 200px);
       display: grid;
