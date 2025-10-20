@@ -677,36 +677,48 @@
   @media (max-width: 1024px) {
     html,
     body {
-      background: #04070d url('HoustonSunset.jpg') center 22% / 210% auto no-repeat;
+      background-color: #04070d;
+      background-image: none;
+    }
+
+    .hero {
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(4, 7, 13, 0.55) 0%,
+          rgba(4, 7, 13, 0.65) 35%,
+          rgba(4, 7, 13, 0.9) 100%
+        ),
+        url('HoustonSunset.jpg') center 20% / cover no-repeat;
       background-attachment: scroll;
     }
 
     .site-nav {
-      padding: clamp(68px, 16vh, 96px) clamp(28px, 12vw, 48px);
-      min-height: 240px;
+      padding: clamp(24px, 8vh, 36px) clamp(18px, 9vw, 32px);
+      min-height: 120px;
     }
 
     .site-nav__inner {
       flex-direction: column;
       align-items: flex-start;
-      gap: clamp(26px, 8vw, 44px);
+      gap: clamp(12px, 5vw, 24px);
     }
 
     .site-nav__brand {
-      font-size: clamp(2.6rem, 9vw, 3.4rem);
-      gap: clamp(22px, 6vw, 30px);
+      font-size: clamp(1.1rem, 3.8vw, 1.5rem);
+      gap: clamp(10px, 4vw, 18px);
     }
 
     .site-nav__brand img {
-      width: clamp(42px, 9vw, 52px);
-      height: clamp(42px, 9vw, 52px);
+      width: clamp(24px, 5.5vw, 30px);
+      height: clamp(24px, 5.5vw, 30px);
     }
 
     .site-nav__menu {
       flex-wrap: wrap;
-      gap: clamp(24px, 8vw, 36px);
-      font-size: clamp(1.8rem, 6.4vw, 2.3rem);
-      letter-spacing: 0.14em;
+      gap: clamp(12px, 4.8vw, 18px);
+      font-size: clamp(0.85rem, 3.2vw, 1.1rem);
+      letter-spacing: 0.08em;
     }
 
     .hero {
@@ -715,10 +727,10 @@
     }
 
     .stage {
-      margin-top: clamp(200px, 48vh, 320px);
+      margin-top: clamp(120px, 30vh, 200px);
       display: grid;
       justify-items: center;
-      gap: clamp(30px, 12vw, 46px);
+      gap: clamp(24px, 10vw, 36px);
     }
 
     .stage svg {
@@ -727,30 +739,30 @@
     }
 
     #name {
-      font-size: clamp(3.8rem, 20vw, 5.6rem);
+      font-size: clamp(2.2rem, 11vw, 3.2rem);
     }
 
     #statement {
-      max-width: 20ch;
-      font-size: clamp(2.4rem, 10.5vw, 3rem);
-      letter-spacing: 0.03em;
+      max-width: 22ch;
+      font-size: clamp(1.1rem, 5.2vw, 1.6rem);
+      letter-spacing: 0.015em;
       text-align: center;
-      line-height: 1.35;
+      line-height: 1.45;
     }
 
     .hero__scroll {
-      width: clamp(132px, 32vw, 160px);
-      height: clamp(132px, 32vw, 160px);
+      width: clamp(70px, 18vw, 96px);
+      height: clamp(70px, 18vw, 96px);
       bottom: clamp(18px, 7vh, 28px);
     }
 
     .hero__scroll svg {
-      width: clamp(132px, 30vw, 156px);
-      height: clamp(132px, 30vw, 156px);
+      width: clamp(70px, 18vw, 96px);
+      height: clamp(70px, 18vw, 96px);
     }
 
     .content {
-      padding: clamp(5rem, 12vw, 8rem) clamp(9vw, 12vw, 14vw) clamp(4rem, 12vw, 6rem);
+      padding: clamp(4.5rem, 10vw, 7rem) clamp(7vw, 10vw, 12vw) clamp(4rem, 12vw, 6rem);
     }
 
     .content__inner {
@@ -764,101 +776,101 @@
       width: 100%;
       align-items: center;
       text-align: center;
-      gap: clamp(28px, 10vw, 42px);
+      gap: clamp(22px, 9vw, 32px);
     }
 
     .content__photo {
-      width: clamp(260px, 68vw, 340px);
+      width: clamp(220px, 60vw, 300px);
       margin: 0 auto;
     }
 
     .content__intro h2 {
-      font-size: clamp(3.6rem, 14vw, 5.6rem);
+      font-size: clamp(2rem, 7vw, 3.2rem);
     }
 
     .content__intro p {
-      font-size: clamp(2rem, 7.2vw, 2.8rem);
+      font-size: clamp(1.1rem, 4vw, 1.6rem);
     }
 
     .about__lead {
-      font-size: clamp(2.4rem, 8vw, 3.1rem);
+      font-size: clamp(1.3rem, 4.8vw, 1.9rem);
     }
 
     .content__nav {
       width: 100%;
       grid-auto-flow: row;
       justify-items: center;
-      gap: clamp(20px, 7vw, 28px);
+      gap: clamp(12px, 5vw, 20px);
     }
 
     .content__nav a {
-      font-size: clamp(2.1rem, 8vw, 2.8rem);
-      gap: clamp(18px, 6vw, 24px);
+      font-size: clamp(1rem, 4vw, 1.5rem);
+      gap: clamp(14px, 5vw, 20px);
     }
 
     .content__nav a::before {
-      width: clamp(90px, 26vw, 120px);
+      width: clamp(60px, 18vw, 84px);
     }
 
     .content__social {
       justify-content: center;
-      gap: clamp(20px, 7vw, 28px);
+      gap: clamp(14px, 5vw, 22px);
     }
 
     .content__social a {
-      width: clamp(84px, 20vw, 100px);
-      height: clamp(84px, 20vw, 100px);
+      width: clamp(52px, 16vw, 72px);
+      height: clamp(52px, 16vw, 72px);
     }
 
     .content__social svg {
-      width: clamp(48px, 12vw, 60px);
-      height: clamp(48px, 12vw, 60px);
+      width: clamp(30px, 9vw, 40px);
+      height: clamp(30px, 9vw, 40px);
     }
 
     .section {
-      gap: clamp(28px, 10vw, 40px);
+      gap: clamp(22px, 9vw, 32px);
     }
 
     .section__title {
-      font-size: clamp(2.8rem, 12vw, 3.8rem);
+      font-size: clamp(1.6rem, 7vw, 2.4rem);
     }
 
     .section__body {
-      gap: clamp(20px, 8vw, 28px);
+      gap: clamp(16px, 6vw, 22px);
     }
 
     .section__body p {
-      font-size: clamp(1.8rem, 7vw, 2.4rem);
+      font-size: clamp(1.1rem, 4.5vw, 1.6rem);
     }
 
     .experience-card {
-      padding: clamp(28px, 9vw, 36px);
+      padding: clamp(22px, 7vw, 28px);
     }
 
     .experience-card__title {
-      font-size: clamp(2rem, 7vw, 2.6rem);
+      font-size: clamp(1.3rem, 5vw, 1.8rem);
     }
 
     .experience-card__dates {
-      font-size: clamp(1.4rem, 5.5vw, 1.7rem);
+      font-size: clamp(1rem, 4.2vw, 1.3rem);
     }
 
     .experience-card__points {
-      gap: clamp(14px, 5vw, 20px);
-      font-size: clamp(1.8rem, 6vw, 2.1rem);
+      gap: clamp(12px, 4.5vw, 18px);
+      font-size: clamp(1.1rem, 4.2vw, 1.5rem);
     }
 
     .experience-card__tags {
-      gap: clamp(12px, 4vw, 16px);
+      gap: clamp(10px, 4vw, 14px);
     }
 
     .experience-card__tag {
-      font-size: clamp(1.3rem, 4.8vw, 1.6rem);
-      padding: clamp(10px, 3.2vw, 14px) clamp(16px, 5.6vw, 22px);
+      font-size: clamp(0.95rem, 3.4vw, 1.2rem);
+      padding: clamp(8px, 2.8vw, 12px) clamp(14px, 5vw, 18px);
     }
 
     .section--contact a {
-      font-size: clamp(2rem, 7vw, 2.6rem);
+      font-size: clamp(1.2rem, 4.8vw, 1.7rem);
     }
   }
 
