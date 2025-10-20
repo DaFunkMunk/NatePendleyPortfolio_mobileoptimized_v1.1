@@ -719,13 +719,13 @@
     }
 
     .site-nav__menu {
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
-      gap: clamp(12px, 4.8vw, 18px);
+      gap: clamp(12px, 4.8vw, 12px);
       font-size: clamp(0.85rem, 3.2vw, 1.1rem);
       letter-spacing: 0.08em;
       text-align: center;
-      width: 100%;
+      width: 90%;
     }
 
     .hero {
