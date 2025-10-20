@@ -674,6 +674,193 @@
     }
   }
 
+  @media (max-width: 780px) {
+    html,
+    body {
+      background: #0b0b0f url('HoustonSunset.jpg') center 18% / 135% auto no-repeat;
+      background-attachment: scroll;
+    }
+
+    .site-nav {
+      padding: clamp(48px, 12vh, 72px) clamp(20px, 10vw, 40px);
+      min-height: 180px;
+    }
+
+    .site-nav__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: clamp(18px, 6vw, 32px);
+    }
+
+    .site-nav__brand {
+      font-size: clamp(2.2rem, 8vw, 2.8rem);
+      gap: clamp(18px, 5vw, 26px);
+    }
+
+    .site-nav__brand img {
+      width: clamp(36px, 8vw, 44px);
+      height: clamp(36px, 8vw, 44px);
+    }
+
+    .site-nav__menu {
+      flex-wrap: wrap;
+      gap: clamp(18px, 7vw, 28px);
+      font-size: clamp(1.4rem, 5.5vw, 1.8rem);
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 0 clamp(18px, 7vw, 32px);
+    }
+
+    .stage {
+      margin-top: clamp(120px, 36vh, 220px);
+      display: grid;
+      justify-items: center;
+      gap: clamp(24px, 10vw, 40px);
+    }
+
+    .stage svg {
+      width: min(520px, 100%);
+      height: auto;
+    }
+
+    #name {
+      font-size: clamp(3.4rem, 18vw, 5rem);
+    }
+
+    #statement {
+      max-width: 24ch;
+      font-size: clamp(1.7rem, 9vw, 2.4rem);
+      letter-spacing: 0.02em;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .hero__scroll {
+      width: clamp(96px, 26vw, 120px);
+      height: clamp(96px, 26vw, 120px);
+      bottom: clamp(20px, 8vh, 32px);
+    }
+
+    .hero__scroll svg {
+      width: clamp(72px, 20vw, 96px);
+      height: clamp(72px, 20vw, 96px);
+    }
+
+    .content {
+      padding: clamp(5rem, 12vw, 7rem) clamp(7vw, 10vw, 12vw) clamp(4rem, 12vw, 6rem);
+    }
+
+    .content__inner {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(48px, 12vw, 64px);
+    }
+
+    .content__left {
+      position: static;
+      width: 100%;
+      align-items: center;
+      text-align: center;
+      gap: clamp(28px, 10vw, 42px);
+    }
+
+    .content__photo {
+      width: clamp(220px, 60vw, 300px);
+      margin: 0 auto;
+    }
+
+    .content__intro h2 {
+      font-size: clamp(3rem, 12vw, 4.8rem);
+    }
+
+    .content__intro p {
+      font-size: clamp(1.6rem, 6.5vw, 2.2rem);
+    }
+
+    .about__lead {
+      font-size: clamp(1.9rem, 7vw, 2.5rem);
+    }
+
+    .content__nav {
+      width: 100%;
+      grid-auto-flow: row;
+      justify-items: center;
+      gap: clamp(20px, 7vw, 28px);
+    }
+
+    .content__nav a {
+      font-size: clamp(1.6rem, 6.5vw, 2.2rem);
+      gap: clamp(18px, 6vw, 24px);
+    }
+
+    .content__nav a::before {
+      width: clamp(70px, 22vw, 100px);
+    }
+
+    .content__social {
+      justify-content: center;
+      gap: clamp(20px, 7vw, 28px);
+    }
+
+    .content__social a {
+      width: clamp(60px, 16vw, 72px);
+      height: clamp(60px, 16vw, 72px);
+    }
+
+    .content__social svg {
+      width: clamp(34px, 10vw, 46px);
+      height: clamp(34px, 10vw, 46px);
+    }
+
+    .section {
+      gap: clamp(28px, 10vw, 40px);
+    }
+
+    .section__title {
+      font-size: clamp(2.4rem, 11vw, 3.4rem);
+    }
+
+    .section__body {
+      gap: clamp(20px, 8vw, 28px);
+    }
+
+    .section__body p {
+      font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+
+    .experience-card {
+      padding: clamp(28px, 9vw, 36px);
+    }
+
+    .experience-card__title {
+      font-size: clamp(1.6rem, 6.5vw, 2.1rem);
+    }
+
+    .experience-card__dates {
+      font-size: clamp(1.2rem, 5vw, 1.4rem);
+    }
+
+    .experience-card__points {
+      gap: clamp(14px, 5vw, 20px);
+      font-size: clamp(1.4rem, 5.5vw, 1.8rem);
+    }
+
+    .experience-card__tags {
+      gap: clamp(12px, 4vw, 16px);
+    }
+
+    .experience-card__tag {
+      font-size: clamp(1.1rem, 4vw, 1.3rem);
+      padding: clamp(8px, 2.8vw, 10px) clamp(14px, 5vw, 18px);
+    }
+
+    .section--contact a {
+      font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+  }
+
   @media (max-width: 640px) {
     .experience-card {
       padding: clamp(20px, 5vw, 26px);
