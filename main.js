@@ -62,9 +62,6 @@ const outline = document.getElementById('outline');
   const statementGapMs = Math.max(statementGap * 1000, 0);
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, Math.max(ms, 0)));
 
-  const MOBILE_TYPING_QUERY = window.matchMedia('(max-width: 1024px)');
-  const shouldTypeStatement = () => !MOBILE_TYPING_QUERY.matches;
-
   let typingStarted = false;
   let fullStatementText = '';
 
@@ -80,14 +77,6 @@ const outline = document.getElementById('outline');
   const startTyping = () => {
     if (!statement || typingStarted) return;
     typingStarted = true;
-
-    if (!shouldTypeStatement()) {
-      statement.textContent = fullStatementText;
-      statement.style.opacity = 1;
-      statement.style.borderRight = '2px solid transparent';
-      return;
-    }
-
     statement.style.opacity = 1;
     let index = 0;
     const chars = fullStatementText.length || 1;
@@ -188,9 +177,9 @@ const outline = document.getElementById('outline');
   const SECTION_SCROLL_OFFSETS = {
     default: -100,
     '#about': -160,
-    '#experience': -160,
-    '#projects': -160,
-    '#contact': -160,
+    '#experience': -100,
+    '#projects': -100,
+    '#contact': -120,
   };
 
   const scrollWithOffset = (element, offset = 0) => {
