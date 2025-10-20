@@ -690,7 +690,7 @@
           rgba(4, 7, 13, 0.9) 100%
         ),
         url('HoustonSunset.jpg') center 20% / cover no-repeat;
-      background-attachment: scroll;
+      background-attachment: fixed;
     }
 
     .site-nav {
