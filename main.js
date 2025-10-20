@@ -172,6 +172,19 @@ const outline = document.getElementById('outline');
   window.addEventListener('scroll', updateNavOnScroll, { passive: true });
   updateNavOnScroll();
 
+  const MOBILE_BRAND_QUERY = '(max-width: 1024px)';
+  const BRAND_SCROLL_OFFSET = -120; // tweak this to reposition the profile card
+
+  const scrollWithOffset = (element, offset = 0) => {
+    if (!element) return;
+    const rect = element.getBoundingClientRect();
+    const targetTop = rect.top + window.scrollY + offset;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const boundedTop = Math.min(Math.max(targetTop, 0), Math.max(maxScroll, 0));
+    window.scrollTo({ top: boundedTop, behavior: 'smooth' });
+  };
+
+
   if (navBrand) {
     navBrand.addEventListener('click', (event) => {
       const target = event.target;
@@ -180,11 +193,11 @@ const outline = document.getElementById('outline');
         return;
       }
 
-      if (window.matchMedia('(max-width: 1024px)').matches) {
+      if (window.matchMedia(MOBILE_BRAND_QUERY).matches) {
         event.preventDefault();
         const profileCard = document.querySelector('#profile-card');
         if (profileCard) {
-          profileCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          scrollWithOffset(profileCard, BRAND_SCROLL_OFFSET);
         } else {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
