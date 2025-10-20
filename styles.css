@@ -778,6 +778,23 @@
 
     .content {
       padding: clamp(4.5rem, 10vw, 7rem) clamp(7vw, 10vw, 12vw) clamp(4rem, 12vw, 6rem);
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(81, 95, 98, .75) 5%,
+          rgba(81, 95, 98, .85) 10%,
+          rgba(81, 95, 98, .95) 15%,
+          rgba(81, 95, 98, 1) 35%,
+          rgba(81, 95, 98, 1) 65%,
+          rgba(81, 95, 98, 1) 70%,
+          rgba(81, 95, 98, .90) 85%,
+          rgba(81, 95, 98, .75) 100%
+        );
+      border-top-left-radius: 1000px 60px;
+      border-top-right-radius: 1000px 60px;
+      border-bottom-left-radius: 1000px 60px;
+      border-bottom-right-radius: 1000px 60px;
+      box-shadow: 0 -12px 20px rgba(0, 0, 0, 0.18);
     }
 
     .content__inner {
