@@ -618,7 +618,7 @@
 
   .experience-card__tags {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 8px;
     margin-top: clamp(16px, 3vh, 24px);
   }
@@ -719,7 +719,7 @@
     }
 
     .site-nav__menu {
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       justify-content: center;
       gap: clamp(12px, 4.8vw, 18px);
       font-size: clamp(0.85rem, 3.2vw, 1.1rem);
