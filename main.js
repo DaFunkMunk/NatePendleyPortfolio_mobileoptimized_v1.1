@@ -173,7 +173,7 @@ const outline = document.getElementById('outline');
   updateNavOnScroll();
 
   const MOBILE_BRAND_QUERY = '(max-width: 1024px)';
-  const BRAND_SCROLL_OFFSET = -160; // tweak this to reposition the profile card
+  const BRAND_SCROLL_OFFSET = -120; // tweak this to reposition the profile card
 
   const scrollWithOffset = (element, offset = 0) => {
     if (!element) return;
