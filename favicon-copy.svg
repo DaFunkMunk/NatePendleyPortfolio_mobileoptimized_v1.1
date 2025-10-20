@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="NP lattice mark">
+  <defs>
+    <style>
+      .c {
+        stroke: #64FFDA
+      }
+
+      /* cyan */
+      .m {
+        stroke: #FF00FF
+      }
+
+      /* magenta*/
+      .p {
+        stroke: #FF107F
+      }
+
+      /* pink */
+      .n {
+        stroke: #5A47FF
+      }
+
+      /* navy */
+    </style>
+  </defs>
+  <!-- All ends/corners square -->
+  <g fill="none" stroke-linecap="butt" stroke-linejoin="miter">
+    <!-- Diagonals (middle/back) -->
+    <!-- <path d="M43 223.5 L220 130" class="c" stroke-width="20"/> -->
+    <path d="M41 213 L216 36" class="c" stroke-width="35" />
+    <path d="M41 36 L216 213" class="m" stroke-width="35" />
+    <!-- Verticals painted last so they sit ON TOP -->
+    <!-- Left vertical -->
+    <path d="M36 24 L36 225" class="n" stroke-width="35" />
+    <!-- Right vertical -->
+    <path d="M220 24 L220 225" class="p" stroke-width="35" />
+  </g>
+</svg>

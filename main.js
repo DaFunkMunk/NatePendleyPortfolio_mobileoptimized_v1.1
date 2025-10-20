@@ -1,0 +1,172 @@
+const outline = document.getElementById('outline');
+  if (outline) {
+    const w = outline.getComputedTextLength ? outline.getComputedTextLength() : 0;
+    const dash = Math.max(Math.ceil(w * 6), 2400);
+    outline.setAttribute('pathLength', dash);
+    outline.style.setProperty('--len', dash);
+    outline.style.strokeDasharray = dash;
+    outline.style.strokeDashoffset = dash;
+  }
+
+  const nameEl = document.getElementById('name');
+  const statement = document.getElementById('statement');
+  const rootStyles = getComputedStyle(document.documentElement);
+  const navEl = document.getElementById('siteNav');
+
+  const toSeconds = (varName, fallback = 0) => {
+    const raw = rootStyles.getPropertyValue(varName);
+    if (!raw) return fallback;
+    const trimmed = raw.trim().toLowerCase();
+    if (!trimmed) return fallback;
+    const match = trimmed.match(/^(-?\d*\.?\d+)(ms|s)?$/);
+    if (match) {
+      const value = parseFloat(match[1]);
+      const unit = match[2] || 's';
+      return unit === 'ms' ? value / 1000 : value;
+    }
+    const numeric = parseFloat(trimmed);
+    return Number.isNaN(numeric) ? fallback : numeric;
+  };
+
+  const getVarString = (varName, fallback = '') => {
+    const raw = rootStyles.getPropertyValue(varName);
+    return raw ? raw.trim() || fallback : fallback;
+  };
+
+  const traceDur = toSeconds('--traceDur');
+  const fillFadeDur = toSeconds('--fillFadeDur');
+  const statementGap = toSeconds('--statementGap');
+  const typeDur = toSeconds('--typeDur', 8);
+  const howdyDelay = toSeconds('--howdyDelay');
+  const howdyFadeDur = toSeconds('--howdyFadeDur');
+  const nameFadeDur = toSeconds('--nameFadeDur');
+  const nameHold = toSeconds('--nameHold', 1.2);
+  const nameCycleGap = toSeconds('--nameCycleGap', 0.2);
+  const nameBaseFontSize = getVarString('--nameBaseFontSize', '200px');
+  const namePhraseFontSize = getVarString('--namePhraseFontSize', nameBaseFontSize);
+  const fillStartFraction = parseFloat(rootStyles.getPropertyValue('--fillStartFraction')) || 0;
+
+  const fillStart = howdyDelay + traceDur * fillStartFraction; // mirrors the CSS calc()
+  const howdyEnd = Math.max(howdyDelay + traceDur, fillStart + fillFadeDur);
+  const howdyFadeComplete = howdyEnd + howdyFadeDur;
+  document.documentElement.style.setProperty('--howdyFinish', `${howdyEnd}s`); // keeps CSS delays readable
+
+  const introAndGapSec = nameFadeDur + nameHold + nameFadeDur + statementGap + nameCycleGap;
+  const statementStartSec = howdyFadeComplete + introAndGapSec;
+  document.documentElement.style.setProperty('--statementDelay', `${statementStartSec}s`);
+
+  const nameFadeMs = Math.max(nameFadeDur * 1000, 0);
+  const nameHoldMs = Math.max(nameHold * 1000, 0);
+  const nameGapMs = Math.max(nameCycleGap * 1000, 0);
+  const statementGapMs = Math.max(statementGap * 1000, 0);
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, Math.max(ms, 0)));
+
+  let typingStarted = false;
+  let fullStatementText = '';
+
+  if (statement) {
+    fullStatementText = statement.textContent.trim();
+    statement.textContent = '';
+  }
+
+  if (nameEl) {
+    nameEl.classList.remove('is-visible');
+  }
+
+  const startTyping = () => {
+    if (!statement || typingStarted) return;
+    typingStarted = true;
+    statement.style.opacity = 1;
+    let index = 0;
+    const chars = fullStatementText.length || 1;
+    const interval = Math.max((typeDur * 1000) / chars, 20);
+    const typer = setInterval(() => {
+      index += 1;
+      statement.textContent = fullStatementText.slice(0, index);
+      if (index >= chars) {
+        clearInterval(typer);
+        statement.style.borderRight = '2px solid transparent';
+      }
+    }, interval);
+  };
+
+  const fadeInName = async () => {
+    if (!nameEl) return;
+    await new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        nameEl.classList.add('is-visible');
+        setTimeout(resolve, nameFadeMs);
+      });
+    });
+  };
+
+  const fadeOutName = async () => {
+    if (!nameEl) return;
+    await new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        nameEl.classList.remove('is-visible');
+        setTimeout(resolve, nameFadeMs);
+      });
+    });
+  };
+
+  const runNameTimeline = async () => {
+    const introText = "I'm Nate.";
+    const phraseSequence = [
+      'A Houston developer who wrangles data by day',
+      'lassos bugs by night',
+      'and leaves teams with faster',
+      'cleaner workflows'
+    ];
+
+    if (!nameEl) {
+      await wait(introAndGapSec * 1000);
+      startTyping();
+      return;
+    }
+
+    nameEl.textContent = introText;
+    nameEl.style.fontSize = nameBaseFontSize;
+
+    await fadeInName();
+    await wait(nameHoldMs);
+    await fadeOutName();
+    await wait(statementGapMs + nameGapMs);
+
+    for (const phrase of phraseSequence) {
+      nameEl.textContent = phrase;
+      nameEl.style.fontSize = namePhraseFontSize;
+      startTyping();
+      await fadeInName();
+      await wait(nameHoldMs);
+      await fadeOutName();
+      await wait(nameGapMs);
+    }
+
+    nameEl.textContent = introText;
+    nameEl.style.fontSize = nameBaseFontSize;
+    await fadeInName();
+  };
+
+  const kickoff = async () => {
+    await wait(howdyFadeComplete * 1000);
+    if (navEl) {
+      navEl.classList.add('site-nav--visible');
+    }
+    await runNameTimeline();
+  };
+
+  kickoff();
+
+  const NAV_SCROLL_TRIGGER = 120;
+  const updateNavOnScroll = () => {
+    if (!navEl) return;
+    if (window.scrollY > NAV_SCROLL_TRIGGER) {
+      navEl.classList.add('site-nav--scrolled');
+    } else {
+      navEl.classList.remove('site-nav--scrolled');
+    }
+  };
+
+  window.addEventListener('scroll', updateNavOnScroll, { passive: true });
+  updateNavOnScroll();
