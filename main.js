@@ -13,6 +13,7 @@ const outline = document.getElementById('outline');
   const rootStyles = getComputedStyle(document.documentElement);
   const navEl = document.getElementById('siteNav');
   const navBrand = document.querySelector('.site-nav__brand');
+  const isMobileScreen = () => window.matchMedia('(max-width: 1024px)').matches;
 
   const toSeconds = (varName, fallback = 0) => {
     const raw = rootStyles.getPropertyValue(varName);
@@ -77,6 +78,14 @@ const outline = document.getElementById('outline');
   const startTyping = () => {
     if (!statement || typingStarted) return;
     typingStarted = true;
+
+    if (isMobileScreen()) {
+      statement.textContent = '';
+      statement.style.opacity = 0;
+      statement.style.borderRight = '2px solid transparent';
+      return;
+    }
+
     statement.style.opacity = 1;
     let index = 0;
     const chars = fullStatementText.length || 1;
@@ -113,7 +122,13 @@ const outline = document.getElementById('outline');
 
   const runNameTimeline = async () => {
     const introText = "I'm Nate.";
-    const phraseSequence = [
+    const phraseSequence = isMobileScreen() ? [
+      'A Houston developer',
+      'wrangling data by day',
+      'taming bugs by night',
+      'building faster',
+      'cleaner workflows'
+    ] : [
       'A Houston developer who wrangles data by day',
       'lassos bugs by night',
       'and leaves teams with faster',
@@ -122,7 +137,9 @@ const outline = document.getElementById('outline');
 
     if (!nameEl) {
       await wait(introAndGapSec * 1000);
-      startTyping();
+      if (!isMobileScreen()) {
+        startTyping();
+      }
       return;
     }
 
@@ -137,7 +154,9 @@ const outline = document.getElementById('outline');
     for (const phrase of phraseSequence) {
       nameEl.textContent = phrase;
       nameEl.style.fontSize = namePhraseFontSize;
-      startTyping();
+      if (!isMobileScreen()) {
+        startTyping();
+      }
       await fadeInName();
       await wait(nameHoldMs);
       await fadeOutName();
@@ -173,13 +192,21 @@ const outline = document.getElementById('outline');
   updateNavOnScroll();
 
   const MOBILE_BRAND_QUERY = '(max-width: 1024px)';
-  const BRAND_SCROLL_OFFSET = -180; // tweak this to reposition the profile card
-  const SECTION_SCROLL_OFFSETS = {
-    default: -100,
-    '#about': -160,
-    '#experience': -100,
-    '#projects': -100,
+  const BRAND_SCROLL_OFFSET = -170; // tweak this to reposition the profile card
+  const SECTION_SCROLL_OFFSETS_DESKTOP = {
+    default: -160,
+    '#about': -150,
+    '#experience': -120,
+    '#projects': -140,
     '#contact': -120,
+  };
+
+  const SECTION_SCROLL_OFFSETS_MOBILE = {
+    default: -110,
+    '#about': -160,
+    '#experience': -160,
+    '#projects': -160,
+    '#contact': -90,
   };
 
   const scrollWithOffset = (element, offset = 0) => {
@@ -213,11 +240,13 @@ const outline = document.getElementById('outline');
   }
 
   const getSectionOffset = (hash) => {
-    if (!hash) return SECTION_SCROLL_OFFSETS.default;
+    const isMobile = window.matchMedia(MOBILE_BRAND_QUERY).matches;
+    const sectionOffsets = isMobile ? SECTION_SCROLL_OFFSETS_MOBILE : SECTION_SCROLL_OFFSETS_DESKTOP;
+    if (!hash) return sectionOffsets.default;
     return (
-      SECTION_SCROLL_OFFSETS[hash.toLowerCase()] ??
-      SECTION_SCROLL_OFFSETS[hash] ??
-      SECTION_SCROLL_OFFSETS.default
+      sectionOffsets[hash.toLowerCase()] ??
+      sectionOffsets[hash] ??
+      sectionOffsets.default
     );
   };
 
