@@ -27,6 +27,7 @@
     background: #0b0b0f url('HoustonSunset.jpg') center / cover fixed no-repeat;
     color: #1c1d29;
     scroll-behavior: smooth;
+    scroll-padding-top: 120px;
   }
 
   .site-nav {
@@ -353,7 +354,7 @@
     display: flex;
     flex-direction: column;
     gap: clamp(18px, 3vw, 28px);
-    scroll-margin-top: clamp(100px, 16vh, 10px);
+    scroll-margin-top: 120px;
   }
 
   .section__header {
@@ -690,6 +691,7 @@
 
     :root {
       --nameBaseFontSize: 300px;
+      --namePhraseFontSize: 150px; 
     }
 
     .hero {
@@ -762,7 +764,7 @@
 
     .stage svg {
       width: min(580px, 100%);
-      height: auto;
+      height: 200px;
     }
 
     #name {
