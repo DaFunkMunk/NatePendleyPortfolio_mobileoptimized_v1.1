@@ -144,8 +144,16 @@
     transform: scaleX(1);
   }
 
+  .site-nav__menu a.is-active::after {
+    transform: scaleX(1);
+  }
+
   .site-nav__menu a:hover,
   .site-nav__menu a:focus-visible {
+    color: #ffffff;
+  }
+
+  .site-nav__menu a.is-active {
     color: #ffffff;
   }
 
@@ -191,13 +199,13 @@
     display: grid;
     gap: 28px;
     max-width: 1300px;
-    padding: 10px 10px;
+    padding: 75px 10px;
     justify-items: center;
     text-align: center;
   }
 
   svg {
-    margin-top: 130px;
+    margin-top: 75px;
     width: min(90vw, 900px);
     height: 300px;
   }
@@ -258,7 +266,8 @@
 
   #statement {
     text-align: left;
-    margin: 0px -150px 250px;
+    margin: 0px -150px 0px;
+    margin-left: -75px;
     max-width: 500ch;
     opacity: 0;
     color: rgba(255,255,255,0.92);
@@ -273,7 +282,7 @@
 
   .hero__scroll {
     position: absolute;
-    bottom: clamp(32px, 7vh, 56px);
+    bottom: clamp(80px, 28vh, 56px);
     left: 50%;
     transform: translateX(-50%);
     width: 36px;
@@ -287,8 +296,8 @@
   }
 
   .hero__scroll svg {
-    width: 22px;
-    height: 22px;
+    width: 88px;
+    height: 88px;
   }
 
   .hero__scroll:hover,
@@ -336,6 +345,7 @@
   }
 
   .content__left {
+    margin-top: -40px;
     position: sticky;
     top: clamp(1rem, 12vw, 7rem);
     width: 400px;
@@ -356,7 +366,7 @@
     display: flex;
     flex-direction: column;
     gap: clamp(18px, 3vw, 28px);
-    scroll-margin-top: 120px;
+/*     scroll-margin-top: 20px; */
   }
 
   .section__header {
@@ -463,8 +473,9 @@
   }
 
   .content__social svg {
-    width: 18px;
-    height: 18px;
+    margin-top: 30px;
+    width: 22px;
+    height: 22px;
   }
 
   .content__photo {
@@ -479,7 +490,7 @@
   }
 
   .about__lead {
-    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    font-size: clamp(1.05rem, 2vw, 0rem);
     color: rgba(244, 246, 255, 0.95);
   }
 
@@ -577,6 +588,7 @@
   }
 
   .experience-card__arrow svg {
+    margin-top: 0px;
     width: 16px;
     height: 16px;
   }
@@ -758,7 +770,7 @@
     }
 
     .stage {
-      margin-top: clamp(120px, 30vh, 200px);
+      margin-top: clamp(-50px, 30vh, px);
       display: grid;
       justify-items: center;
       gap: clamp(24px, 10vw, 36px);
@@ -766,7 +778,7 @@
 
     .stage svg {
       width: min(580px, 100%);
-      height: 200px;
+      height: 80px;
     }
 
     #name {
@@ -790,6 +802,7 @@
       width: clamp(70px, 18vw, 96px);
       height: clamp(70px, 18vw, 96px);
       bottom: clamp(18px, 7vh, 28px);
+      z-index: 2;
     }
 
     .hero__scroll svg {
@@ -798,6 +811,7 @@
     }
 
     .content {
+      margin-top: -20px;
       padding: clamp(6rem, 6vw, 3rem) clamp(6vw, 9vw, 10vw) clamp(2rem, 6vw, 3rem);
       box-shadow: 0 -12px 20px rgba(0, 0, 0, 0.18);
     }
@@ -819,7 +833,7 @@
 
     .content__photo {
       width: clamp(220px, 60vw, 300px);
-      margin: 0 auto;
+      margin-top: 20px;
     }
 
     .content__intro {
@@ -886,6 +900,8 @@
 
     .section__body p {
       font-size: clamp(1.1rem, 4.5vw, 1.6rem);
+      padding-top: 30px;
+
     }
 
     .experience-card {

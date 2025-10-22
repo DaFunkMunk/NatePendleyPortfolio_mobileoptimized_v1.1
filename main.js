@@ -125,13 +125,13 @@ const outline = document.getElementById('outline');
     const phraseSequence = isMobileScreen() ? [
       'A Houston developer',
       'wrangling data by day',
-      'taming bugs by night',
+      'lassos bugs by night',
       'building faster',
       'cleaner workflows'
     ] : [
       'A Houston developer who wrangles data by day',
       'lassos bugs by night',
-      'and leaves teams with faster',
+      'building faster',
       'cleaner workflows'
     ];
 
@@ -192,9 +192,9 @@ const outline = document.getElementById('outline');
   updateNavOnScroll();
 
   const MOBILE_BRAND_QUERY = '(max-width: 1024px)';
-  const BRAND_SCROLL_OFFSET = -170; // tweak this to reposition the profile card
+  const BRAND_SCROLL_OFFSET = -150; // tweak this to reposition the profile card
   const SECTION_SCROLL_OFFSETS_DESKTOP = {
-    default: -160,
+    default: -150,
     '#about': -150,
     '#experience': -120,
     '#projects': -140,
@@ -250,6 +250,25 @@ const outline = document.getElementById('outline');
     );
   };
 
+  const navLinks = document.querySelectorAll('.site-nav__menu a[href^="#"]');
+  const sidebarLinks = document.querySelectorAll('.content__nav a[href^="#"]');
+
+  const sectionLinkData = Array.from(navLinks)
+    .map((link, index) => {
+      const hash = link.getAttribute('href');
+      if (!hash || !hash.startsWith('#')) return null;
+      const target = document.querySelector(hash);
+      if (!target) return null;
+      return { link, hash, target, order: index };
+    })
+    .filter(Boolean);
+
+  const setActiveNavLink = (hash) => {
+    sectionLinkData.forEach(({ link, hash: linkHash }) => {
+      link.classList.toggle('is-active', hash && linkHash.toLowerCase() === hash.toLowerCase());
+    });
+  };
+
   const handleSectionLinkClick = (event) => {
     const link = event.currentTarget;
     const href = link.getAttribute('href');
@@ -261,10 +280,58 @@ const outline = document.getElementById('outline');
     event.preventDefault();
     const offset = getSectionOffset(href);
     scrollWithOffset(target, offset);
+    setActiveNavLink(href);
   };
 
-  const navLinks = document.querySelectorAll('.site-nav__menu a[href^="#"]');
   navLinks.forEach((link) => link.addEventListener('click', handleSectionLinkClick));
+  sidebarLinks.forEach((link) => link.addEventListener('click', handleSectionLinkClick));
+
+  if (sectionLinkData.length) {
+    const sectionState = new Map(sectionLinkData.map(({ target }) => [target, false]));
+
+    const resolveActiveSection = () => {
+      const visibleSections = sectionLinkData
+        .filter(({ target }) => sectionState.get(target))
+        .sort((a, b) => a.order - b.order);
+
+      if (visibleSections.length) {
+        const active = visibleSections[visibleSections.length - 1];
+        setActiveNavLink(active.hash);
+        return;
+      }
+
+      const firstSection = sectionLinkData[0]?.target;
+      if (firstSection) {
+        const firstTop = firstSection.getBoundingClientRect().top + window.scrollY;
+        if (window.scrollY + 40 < firstTop) {
+          setActiveNavLink(null);
+          return;
+        }
+      }
+
+      const lastSection = sectionLinkData[sectionLinkData.length - 1];
+      if (lastSection) {
+        setActiveNavLink(lastSection.hash);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          sectionState.set(entry.target, entry.isIntersecting && entry.intersectionRatio > 0);
+        });
+        resolveActiveSection();
+      },
+      {
+        rootMargin: '-55% 0px -35% 0px',
+        threshold: [0, 0.25, 0.5],
+      }
+    );
+
+    sectionLinkData.forEach(({ target }) => observer.observe(target));
+    window.addEventListener('scroll', resolveActiveSection, { passive: true });
+    resolveActiveSection();
+  }
 
   const heroAnchors = document.querySelectorAll('.hero__scroll[href^="#"]');
   heroAnchors.forEach((anchor) => anchor.addEventListener('click', handleSectionLinkClick));
