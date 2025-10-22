@@ -203,7 +203,7 @@
     position: relative;
     min-height: var(--screen);
     padding-top: 20px;
-    padding-bottom: 200px;
+    padding-bottom: 20px;
     display: grid;
     place-items: center;
     color: #fff;
@@ -243,6 +243,7 @@
     gap: 28px;
     max-width: 1300px;
     padding: 75px 10px;
+    padding-bottom:200px ;
     justify-items: center;
     text-align: center;
   }
@@ -250,7 +251,7 @@
   svg {
     margin-top: 75px;
     width: min(90vw, 900px);
-    height: 300px;
+    height: 200px;
   }
 
   #outline {
@@ -351,7 +352,7 @@
 
   .content {
     margin-top: -40px;
-    position: relative;
+    position: absolute;
     z-index: 1;
     padding: clamp(1rem, 12vw, 9rem) clamp(5vw, 12vw, 1rem) clamp(1rem, 12vw, 1rem);
     color: rgba(239, 244, 255, 0.92);
