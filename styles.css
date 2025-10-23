@@ -241,9 +241,9 @@
   .stage {
     display: grid;
     gap: 28px;
-    max-width: 1300px;
+    max-width: 1500px;
     padding: 75px 10px;
-    padding-bottom:200px ;
+    padding-bottom:150px ;
     justify-items: center;
     text-align: center;
   }
@@ -807,15 +807,17 @@
     }
 
     .stage {
-      margin-top: clamp(-50px, 30vh, px);
+      margin-top: clamp(-50px, 40vh, 0px);
       display: grid;
       justify-items: center;
       gap: clamp(24px, 10vw, 36px);
+      max-width: 1800px;
     }
 
     .stage svg {
-      width: min(580px, 100%);
-      height: 80px;
+      margin-top: 150px;
+      width: min(550px, 100%);
+      height: 180px;
     }
 
     #name {
@@ -832,7 +834,7 @@
 
     #outline,
     #filled {
-      font-size: 300px;
+      font-size: 500px;
     }
 
     .hero__scroll {
