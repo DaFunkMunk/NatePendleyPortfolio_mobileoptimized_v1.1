@@ -816,6 +816,7 @@
 
     .stage svg {
       margin-top: 150px;
+      padding-left: 10px;
       width: min(550px, 100%);
       height: 180px;
     }
