@@ -335,3 +335,91 @@ const outline = document.getElementById('outline');
 
   const heroAnchors = document.querySelectorAll('.hero__scroll[href^="#"]');
   heroAnchors.forEach((anchor) => anchor.addEventListener('click', handleSectionLinkClick));
+
+  const projectModal = document.getElementById('projectImageModal');
+  const projectModalImage = projectModal?.querySelector('.project-image-modal__image');
+  const projectModalClose = projectModal?.querySelector('.project-image-modal__close');
+  const projectImageButtons = document.querySelectorAll('.project-card__preview');
+  let modalCloseTimer = null;
+  let lastFocusedBeforeModal = null;
+
+  const clearModalCloseTimer = () => {
+    if (modalCloseTimer) {
+      clearTimeout(modalCloseTimer);
+      modalCloseTimer = null;
+    }
+  };
+
+  const closeProjectModal = () => {
+    if (!projectModal) return;
+
+    clearModalCloseTimer();
+    projectModal.classList.remove('is-visible');
+    projectModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('project-image-modal-open');
+
+    modalCloseTimer = setTimeout(() => {
+      projectModal.hidden = true;
+      if (projectModalImage) {
+        projectModalImage.src = '';
+        projectModalImage.alt = '';
+      }
+
+      if (lastFocusedBeforeModal) {
+        lastFocusedBeforeModal.focus();
+        lastFocusedBeforeModal = null;
+      }
+    }, 260);
+  };
+
+  const openProjectModal = (source, altText = '') => {
+    if (!projectModal || !projectModalImage || !source) return;
+
+    clearModalCloseTimer();
+    lastFocusedBeforeModal = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+
+    projectModalImage.src = source;
+    projectModalImage.alt = altText;
+
+    projectModal.hidden = false;
+    projectModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('project-image-modal-open');
+
+    requestAnimationFrame(() => {
+      projectModal.classList.add('is-visible');
+      projectModalClose?.focus();
+    });
+  };
+
+  projectImageButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const targetImg = button.querySelector('img');
+      const fullImageSrc = button.getAttribute('data-full-image') || targetImg?.getAttribute('src') || '';
+      const altText = targetImg?.getAttribute('alt') || '';
+      openProjectModal(fullImageSrc, altText);
+    });
+  });
+
+  if (projectModal) {
+    projectModal.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      const dismissTrigger = target.closest('[data-modal-dismiss="true"]');
+      if (dismissTrigger || target === projectModal) {
+        event.preventDefault();
+        closeProjectModal();
+      }
+    });
+  }
+
+  projectModalClose?.addEventListener('click', (event) => {
+    event.preventDefault();
+    closeProjectModal();
+  });
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && projectModal && !projectModal.hidden) {
+      event.preventDefault();
+      closeProjectModal();
+    }
+  });
