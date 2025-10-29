@@ -799,6 +799,11 @@
     color: rgba(11, 11, 15, 0.4);
   }
 
+  .contact-form__field select {
+    background: rgba(252, 253, 253, 0.98);
+    color: #0b0b0f;
+  }
+
   .contact-form__field input:focus-visible,
   .contact-form__field select:focus-visible,
   .contact-form__field textarea:focus-visible {
