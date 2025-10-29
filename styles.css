@@ -423,6 +423,10 @@
     color: rgba(255,255,255,0.42);
   }
 
+  .section__eyebrow--contact {
+    color: rgba(255, 255, 255, 0.58);
+  }
+
   .section__title {
     margin: 0;
     font-size: clamp(1.9rem, 4vw, 2.8rem);
