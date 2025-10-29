@@ -423,3 +423,151 @@ const outline = document.getElementById('outline');
       closeProjectModal();
     }
   });
+
+  const contactForm = document.getElementById('contactForm');
+  const contactStatus = contactForm?.querySelector('.contact-form__status');
+  const contactPhoneOptIn = document.getElementById('contactPhoneOptIn');
+  const contactPhoneWrapper = contactForm?.querySelector('[data-phone-wrapper]');
+  const contactPhoneInput = document.getElementById('contactPhone');
+  const contactPreferredTime = document.getElementById('contactPreferredTime');
+  const contactSubmittedAt = document.getElementById('contactSubmittedAt');
+  const contactRevealButtons = document.querySelectorAll('.contact-reveal__trigger');
+  const contactSubmitButton = contactForm?.querySelector('.contact-form__submit');
+
+  const setContactStatus = (message = '', type = 'info') => {
+    if (!contactStatus) return;
+    contactStatus.textContent = message;
+    if (message) {
+      contactStatus.dataset.status = type;
+    } else {
+      contactStatus.removeAttribute('data-status');
+    }
+  };
+
+  const togglePhoneFields = (shouldShow) => {
+    if (!contactPhoneWrapper) return;
+    contactPhoneWrapper.hidden = !shouldShow;
+    if (contactPhoneInput) {
+      contactPhoneInput.required = shouldShow;
+      if (!shouldShow) {
+        contactPhoneInput.value = '';
+      }
+    }
+    if (!shouldShow && contactPreferredTime) {
+      contactPreferredTime.selectedIndex = 0;
+    }
+  };
+
+  const formatPhoneNumber = (input = '') => {
+    const digits = input.replace(/\D/g, '');
+    if (digits.length === 10) {
+      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+    }
+    if (digits.length === 11 && digits.startsWith('1')) {
+      return `+1 (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
+    }
+    return digits;
+  };
+
+  const formReadyTimestamp = Date.now();
+
+  if (contactSubmittedAt) {
+    contactSubmittedAt.value = '';
+  }
+
+  if (contactPhoneOptIn) {
+    togglePhoneFields(contactPhoneOptIn.checked);
+    contactPhoneOptIn.addEventListener('change', () => {
+      togglePhoneFields(contactPhoneOptIn.checked);
+    });
+  }
+
+  contactRevealButtons.forEach((button) => {
+    const labelEl = button.querySelector('.contact-reveal__label');
+    const valueEl = button.querySelector('.contact-reveal__value');
+    const revealType = button.dataset.reveal;
+
+    if (!labelEl || !valueEl) return;
+
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+      if (!isExpanded) {
+        if (revealType === 'email') {
+          const user = valueEl.dataset.user || '';
+          const domain = valueEl.dataset.domain || '';
+          if (user && domain) {
+            const email = `${user}@${domain}`;
+            labelEl.textContent = 'Email';
+            valueEl.textContent = email;
+            button.dataset.href = `mailto:${email}`;
+            button.setAttribute('aria-expanded', 'true');
+            button.title = 'Click again to start an email';
+          }
+        } else if (revealType === 'phone') {
+          const phoneDigits = valueEl.dataset.phone || '';
+          if (phoneDigits) {
+            const formatted = formatPhoneNumber(phoneDigits);
+            labelEl.textContent = 'Phone';
+            valueEl.textContent = formatted;
+            const sanitized = phoneDigits.replace(/\D/g, '');
+            const telLink = sanitized.length === 10 ? `tel:+1${sanitized}` : `tel:${sanitized}`;
+            button.dataset.href = telLink;
+            button.setAttribute('aria-expanded', 'true');
+            button.title = 'Click again to start a call';
+          }
+        }
+        return;
+      }
+
+      const href = button.dataset.href;
+      if (href && (href.startsWith('mailto:') || href.startsWith('tel:'))) {
+        window.location.href = href;
+      }
+    });
+  });
+
+  if (contactForm) {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('contact') === 'success') {
+      setContactStatus('Thanks for reaching out! I’ll review your note and follow up shortly.', 'info');
+      params.delete('contact');
+      const hash = window.location.hash;
+      const paramString = params.toString();
+      try {
+        const nextUrl = `${window.location.pathname}${paramString ? `?${paramString}` : ''}${hash}`;
+        window.history.replaceState({}, document.title, nextUrl);
+      } catch (err) {
+        // no-op if replaceState is not available
+      }
+    }
+
+    contactForm.addEventListener('submit', (event) => {
+      const elapsed = Date.now() - formReadyTimestamp;
+      setContactStatus('', 'info');
+
+      if (elapsed < 1500) {
+        event.preventDefault();
+        setContactStatus('Looks like that was a little fast—add a bit more detail before submitting.', 'error');
+        return;
+      }
+
+      if (contactPhoneOptIn?.checked) {
+        const phoneValue = contactPhoneInput?.value.trim() || '';
+        if (!phoneValue || phoneValue.replace(/\D/g, '').length < 10) {
+          event.preventDefault();
+          setContactStatus('Please share a phone number so I can call you back.', 'error');
+          contactPhoneInput?.focus();
+          return;
+        }
+      }
+
+      if (contactSubmittedAt) {
+        contactSubmittedAt.value = new Date().toISOString();
+      }
+
+      contactSubmitButton?.setAttribute('disabled', 'disabled');
+      setContactStatus('Sending your request…', 'info');
+    });
+  }

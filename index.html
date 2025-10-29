@@ -342,7 +342,92 @@
         </div>
         <div class="section__body">
           <p>If you're looking to modernize operations, wire up better data visibility, or tame SharePoint workflows, I'd love to connect.</p>
-          <p>Reach me at <a href="mailto:ngpend2@gmail.com">ngpend2@gmail.com</a> or call <a href="tel:18606909548">860-690-9548</a>.</p>
+
+          <div class="contact-reveal">
+            <button class="contact-reveal__trigger" type="button" data-reveal="email" aria-expanded="false">
+              <span class="contact-reveal__label">Click to reveal email</span>
+              <span class="contact-reveal__value" data-user="ngpend2" data-domain="gmail.com">@</span>
+            </button>
+            <button class="contact-reveal__trigger" type="button" data-reveal="phone" aria-expanded="false">
+              <span class="contact-reveal__label">Click to reveal phone</span>
+              <span class="contact-reveal__value" data-phone="8606909548"></span>
+            </button>
+          </div>
+
+          <form
+            id="contactForm"
+            class="contact-form"
+            action="https://formsubmit.co/0989700487c051bb1060f0ab6ea55ce3"
+            method="POST"
+          >
+            <input type="hidden" name="_subject" value="Request a Call from natependley.com">
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="contact-form__trap">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://natependley.com/?contact=success">
+            <input type="hidden" name="submittedAt" id="contactSubmittedAt">
+
+            <div class="contact-form__row">
+              <label class="contact-form__field">
+                <span class="contact-form__label">Full name</span>
+                <input type="text" name="name" autocomplete="name" required placeholder="">
+              </label>
+              <label class="contact-form__field">
+                <span class="contact-form__label">Email address</span>
+                <input type="email" name="email" autocomplete="email" required placeholder="">
+              </label>
+            </div>
+
+            <label class="contact-form__field contact-form__field--checkbox">
+              <input type="checkbox" name="call_opt_in" id="contactPhoneOptIn" value="yes">
+              <span>
+                I'd like a phone call (share your preferred number below)
+              </span>
+            </label>
+
+            <div class="contact-form__row contact-form__row--collapse" data-phone-wrapper hidden>
+              <label class="contact-form__field">
+                <span class="contact-form__label">Phone number</span>
+                <input
+                  type="tel"
+                  name="phone"
+                  id="contactPhone"
+                  autocomplete="tel"
+                  placeholder="(555) 123-4567"
+                  inputmode="tel"
+                >
+              </label>
+              <label class="contact-form__field">
+                <span class="contact-form__label">Preferred call time</span>
+                <select name="preferred_time" id="contactPreferredTime">
+                  <option value="">Select a window</option>
+                  <option>Morning (8a – 11a CT)</option>
+                  <option>Midday (11a – 2p CT)</option>
+                  <option>Afternoon (2p – 5p CT)</option>
+                  <option>Evening (5p – 7p CT)</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="contact-form__field contact-form__field--full">
+              <span class="contact-form__label">How can I help?</span>
+              <textarea
+                name="message"
+                rows="5"
+                required
+                placeholder="Share a quick overview of the project, challenges, or goals."
+              ></textarea>
+            </label>
+
+            <div class="contact-form__actions">
+              <button class="contact-form__submit" type="submit">
+                Request a Call
+              </button>
+              <div class="contact-form__status" role="status" aria-live="polite"></div>
+              <p class="contact-form__note">
+                I typically respond within one business day. If you don&rsquo;t hear back, feel free to follow up.
+              </p>
+            </div>
+          </form>
         </div>
       </section>
     </div>
