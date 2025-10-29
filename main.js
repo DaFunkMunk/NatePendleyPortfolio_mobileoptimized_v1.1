@@ -469,7 +469,7 @@ const outline = document.getElementById('outline');
     return digits;
   };
 
-  const formReadyTimestamp = Date.now();
+  let formReadyTimestamp = Date.now();
 
   if (contactSubmittedAt) {
     contactSubmittedAt.value = '';
@@ -553,20 +553,19 @@ const outline = document.getElementById('outline');
       contactSubmitButton?.removeAttribute('disabled');
     });
 
-    contactForm.addEventListener('submit', (event) => {
-      const elapsed = Date.now() - formReadyTimestamp;
+    contactForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
       setContactStatus('', 'info');
 
+      const elapsed = Date.now() - formReadyTimestamp;
       if (elapsed < 1500) {
-        event.preventDefault();
-        setContactStatus('Looks like that was a little fast—add a bit more detail before submitting.', 'error');
+        setContactStatus('Looks like that was a little fast; add a bit more detail before submitting.', 'error');
         return;
       }
 
       if (contactPhoneOptIn?.checked) {
         const phoneValue = contactPhoneInput?.value.trim() || '';
         if (!phoneValue || phoneValue.replace(/\D/g, '').length < 10) {
-          event.preventDefault();
           setContactStatus('Please share a phone number so I can call you back.', 'error');
           contactPhoneInput?.focus();
           return;
@@ -578,6 +577,38 @@ const outline = document.getElementById('outline');
       }
 
       contactSubmitButton?.setAttribute('disabled', 'disabled');
-      setContactStatus('Sending your request…', 'info');
+      setContactStatus('Sending your request...', 'info');
+
+      const formData = new FormData(contactForm);
+      const payload = Object.fromEntries(formData.entries());
+      const ajaxEndpoint = contactForm.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
+
+      try {
+        const response = await fetch(ajaxEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        contactForm.reset();
+        togglePhoneFields(false);
+        setContactStatus('Thanks for reaching out! I\'ll review your note and follow up shortly.', 'info');
+        setTimeout(() => setContactStatus(''), 8000);
+        contactSubmitButton?.removeAttribute('disabled');
+        formReadyTimestamp = Date.now();
+      } catch (error) {
+        setContactStatus('Something went wrong sending the request. Try again or email me directly.', 'error');
+        contactSubmitButton?.removeAttribute('disabled');
+        console.error('Form submission failed:', error);
+      }
     });
   }
+
+
