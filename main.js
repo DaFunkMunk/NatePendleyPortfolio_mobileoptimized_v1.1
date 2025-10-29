@@ -532,6 +532,9 @@ const outline = document.getElementById('outline');
     const params = new URLSearchParams(window.location.search);
     if (params.get('contact') === 'success') {
       setContactStatus('Thanks for reaching out! I’ll review your note and follow up shortly.', 'info');
+      setTimeout(() => {
+        setContactStatus('');
+      }, 8000);
       params.delete('contact');
       const hash = window.location.hash;
       const paramString = params.toString();
@@ -542,6 +545,13 @@ const outline = document.getElementById('outline');
         // no-op if replaceState is not available
       }
     }
+
+    contactForm.addEventListener('input', () => {
+      if (contactStatus?.textContent) {
+        setContactStatus('');
+      }
+      contactSubmitButton?.removeAttribute('disabled');
+    });
 
     contactForm.addEventListener('submit', (event) => {
       const elapsed = Date.now() - formReadyTimestamp;
