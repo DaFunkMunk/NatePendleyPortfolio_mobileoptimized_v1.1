@@ -425,6 +425,7 @@
 
   .section__eyebrow--contact {
     color: rgba(255, 255, 255, 0.58);
+    padding-top: 100px;
   }
 
   .section__title {

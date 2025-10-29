@@ -198,7 +198,7 @@ const outline = document.getElementById('outline');
     '#about': -150,
     '#experience': -120,
     '#projects': -140,
-    '#contact': -120,
+    '#contact': -50,
   };
 
   const SECTION_SCROLL_OFFSETS_MOBILE = {
