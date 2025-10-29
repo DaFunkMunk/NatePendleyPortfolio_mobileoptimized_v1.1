@@ -399,7 +399,7 @@
   .content__right {
     display: flex;
     flex-direction: column;
-    gap: clamp(48px, 8vh, 96px);
+/*     gap: clamp(48px, 8vh, 96px); */
   }
 
   .section {
@@ -414,6 +414,7 @@
     flex-direction: column;
     gap: clamp(8px, 1.8vw, 14px);
   }
+
 
   .section__eyebrow {
     font-size: 0.75rem;
@@ -433,6 +434,58 @@
     flex-direction: column;
     gap: clamp(16px, 3vh, 28px);
 /*     padding-bottom: 300px; */
+  }
+
+  .resume-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(244, 246, 255, 0.82);
+    text-decoration: none;
+    border-bottom: none;
+    transition: color 0.25s ease;
+  }
+
+  .resume-link__icon {
+    display: inline-flex;
+    transform: translate(0, 0);
+    transition: transform 0.25s ease, color 0.25s ease;
+  }
+
+  .resume-link__icon svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+    transform: translateY(-37px);
+  }
+
+  .resume-link:hover,
+  .resume-link:focus-visible {
+    color: var(--accent);
+    outline: none;
+  }
+
+  .resume-link:hover .resume-link__icon,
+  .resume-link:focus-visible .resume-link__icon {
+    transform: translate(3px, -3px);
+  }
+
+  .resume-link--experience {
+    margin: 0px
+  }
+
+  .contact-reveal-row {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 3vw, 24px);
+    flex-wrap: wrap;
+  }
+
+  .resume-link--contact {
+    margin-left: 10px;
   }
 
   .content p {
@@ -539,6 +592,7 @@
     display: grid;
     gap: clamp(14px, 3vh, 24px);
     max-width: 60ch;
+    padding-bottom: 50px;
   }
 
   .about__highlights {
@@ -897,7 +951,6 @@
   .section--contact a {
     color: var(--accent);
     text-decoration: none;
-    border-bottom: 1px solid rgba(100, 255, 218, 0.35);
     padding-bottom: 2px;
     transition: border-color 0.25s ease;
   }
@@ -955,6 +1008,16 @@
     .contact-form__note {
       white-space: normal;
     }
+
+    .contact-reveal-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .resume-link--contact {
+      margin-left: 0;
+    }
+
   }
 
   @media (max-width: 1024px) {
