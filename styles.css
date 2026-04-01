@@ -353,6 +353,8 @@
   .content {
     margin-top: -40px;
     position: absolute;
+    left: 0;
+    right: 0;
     z-index: 1;
     padding: clamp(1rem, 12vw, 9rem) clamp(5vw, 12vw, 1rem) clamp(1rem, 12vw, 1rem);
     color: rgba(239, 244, 255, 0.92);
