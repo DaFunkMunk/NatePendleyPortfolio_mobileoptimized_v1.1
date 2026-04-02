@@ -581,10 +581,9 @@ const outline = document.getElementById('outline');
 
       const formData = new FormData(contactForm);
       const payload = Object.fromEntries(formData.entries());
-      const ajaxEndpoint = contactForm.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
 
       try {
-        const response = await fetch(ajaxEndpoint, {
+        const response = await fetch('/api/contact', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -595,7 +594,7 @@ const outline = document.getElementById('outline');
 
         const data = await response.json().catch(() => ({}));
 
-        if (!response.ok || data.success === 'false') {
+        if (!response.ok || !data.ok) {
           throw new Error(`Request failed with status ${response.status}`);
         }
 
