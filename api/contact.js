@@ -1,5 +1,4 @@
-const FORMSUBMIT_URL = 'https://formsubmit.co/0989700487c051bb1060f0ab6ea55ce3';
-const SUCCESS_REDIRECT = 'https://natependley.com/?contact=success#contact';
+const FORMSUBMIT_AJAX_URL = 'https://formsubmit.co/ajax/0989700487c051bb1060f0ab6ea55ce3';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -7,19 +6,24 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Strip _next — we handle the redirect ourselves
-  const fields = { ...req.body };
-  delete fields._next;
+  // Strip redirect/meta fields — not needed for AJAX submissions
+  const { _next, _captcha, _template, ...fields } = req.body;
 
-  const response = await fetch(FORMSUBMIT_URL, {
+  const response = await fetch(FORMSUBMIT_AJAX_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams(fields).toString(),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Origin': 'https://www.natependley.com',
+    },
+    body: JSON.stringify(fields),
   });
 
-  if (response.ok) {
-    res.redirect(303, SUCCESS_REDIRECT);
+  const data = await response.json().catch(() => ({}));
+
+  if (response.ok && data.success) {
+    res.status(200).json({ ok: true });
   } else {
-    res.status(502).end('Submission failed. Please try again.');
+    res.status(502).json({ ok: false, error: data.message || 'Submission failed' });
   }
 }
